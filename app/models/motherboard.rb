@@ -1,0 +1,3 @@
+class Motherboard < ApplicationRecord
+    
+end

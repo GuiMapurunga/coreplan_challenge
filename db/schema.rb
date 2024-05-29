@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_27_023044) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_29_035213) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "adminpack"
   enable_extension "plpgsql"
@@ -22,6 +22,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_27_023044) do
     t.boolean "intel_compatibility"
     t.integer "max_ram"
     t.integer "max_ram_slots"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rams", force: :cascade do |t|
+    t.string "name"
+    t.integer "capacity"
+    t.decimal "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

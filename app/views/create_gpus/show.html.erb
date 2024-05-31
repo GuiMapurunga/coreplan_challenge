@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @create_gpu %>
+
+<div>
+  <%= link_to "Edit this create gpu", edit_create_gpu_path(@create_gpu) %> |
+  <%= link_to "Back to create gpus", create_gpus_path %>
+
+  <%= button_to "Destroy this create gpu", @create_gpu, method: :delete %>
+</div>

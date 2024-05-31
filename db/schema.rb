@@ -10,10 +10,61 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_29_035213) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_31_051155) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "adminpack"
   enable_extension "plpgsql"
+
+  create_table "brands", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "clients", force: :cascade do |t|
+    t.string "name"
+    t.string "adress"
+    t.integer "phone_number"
+    t.bigint "computers_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["computers_id"], name: "index_clients_on_computers_id"
+  end
+
+  create_table "computer_rams", force: :cascade do |t|
+    t.bigint "computers_id", null: false
+    t.bigint "rams_id", null: false
+    t.integer "capacity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["computers_id"], name: "index_computer_rams_on_computers_id"
+    t.index ["rams_id"], name: "index_computer_rams_on_rams_id"
+  end
+
+  create_table "computers", force: :cascade do |t|
+    t.bigint "cpus_id", null: false
+    t.bigint "motherboards_id", null: false
+    t.bigint "gpus_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cpus_id"], name: "index_computers_on_cpus_id"
+    t.index ["gpus_id"], name: "index_computers_on_gpus_id"
+    t.index ["motherboards_id"], name: "index_computers_on_motherboards_id"
+  end
+
+  create_table "cpus", force: :cascade do |t|
+    t.bigint "brand_id", null: false
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["brand_id"], name: "index_cpus_on_brand_id"
+  end
+
+  create_table "gpus", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "motherboards", force: :cascade do |t|
     t.string "name"
@@ -29,9 +80,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_29_035213) do
   create_table "rams", force: :cascade do |t|
     t.string "name"
     t.integer "capacity"
-    t.decimal "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "clients", "computers", column: "computers_id"
+  add_foreign_key "computer_rams", "computers", column: "computers_id"
+  add_foreign_key "computer_rams", "rams", column: "rams_id"
+  add_foreign_key "computers", "cpus", column: "cpus_id"
+  add_foreign_key "computers", "gpus", column: "gpus_id"
+  add_foreign_key "computers", "motherboards", column: "motherboards_id"
+  add_foreign_key "cpus", "brands"
 end

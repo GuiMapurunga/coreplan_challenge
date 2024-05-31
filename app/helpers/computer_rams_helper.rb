@@ -1,0 +1,2 @@
+module ComputerRamsHelper
+end

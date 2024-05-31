@@ -1,0 +1,17 @@
+<%= form_with(model: cpu) do |form| %>
+  <% if cpu.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(cpu.errors.count, "error") %> prohibited this cpu from being saved:</h2>
+
+      <ul>
+        <% cpu.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

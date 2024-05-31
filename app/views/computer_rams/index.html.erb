@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Computer rams</h1>
+
+<div id="computer_rams">
+  <% @computer_rams.each do |computer_ram| %>
+    <%= render computer_ram %>
+    <p>
+      <%= link_to "Show this computer ram", computer_ram %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New computer ram", new_computer_ram_path %>

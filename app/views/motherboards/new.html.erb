@@ -1,0 +1,46 @@
+<%= form_with(model: @motherboard, local: true) do |form| %>
+  <% if @motherboard.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@motherboard.errors.count, "error") %> prohibited this motherboard from being saved:</h2>
+      <ul>
+        <% @motherboard.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :integrated_graph %>
+    <%= form.check_box :integrated_graph %>
+  </div>
+
+  <div class="field">
+    <%= form.label :amd_compatibility %>
+    <%= form.check_box :amd_compatibility %>
+  </div>
+
+  <div class="field">
+    <%= form.label :intel_compatibility %>
+    <%= form.check_box :intel_compatibility %>
+  </div>
+
+  <div class="field">
+    <%= form.label :max_ram %>
+    <%= form.number_field :max_ram %>
+  </div>
+
+  <div class="field">
+    <%= form.label :max_ram_slots %>
+    <%= form.number_field :max_ram_slots %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

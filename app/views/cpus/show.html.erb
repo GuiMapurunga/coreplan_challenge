@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @cpu %>
+
+<div>
+  <%= link_to "Edit this cpu", edit_cpu_path(@cpu) %> |
+  <%= link_to "Back to cpus", cpus_path %>
+
+  <%= button_to "Destroy this cpu", @cpu, method: :delete %>
+</div>

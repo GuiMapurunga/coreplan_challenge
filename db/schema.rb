@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_31_051155) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_01_001952) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "adminpack"
   enable_extension "plpgsql"
@@ -25,31 +25,30 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_31_051155) do
     t.string "name"
     t.string "adress"
     t.integer "phone_number"
-    t.bigint "computers_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["computers_id"], name: "index_clients_on_computers_id"
   end
 
   create_table "computer_rams", force: :cascade do |t|
-    t.bigint "computers_id", null: false
-    t.bigint "rams_id", null: false
-    t.integer "capacity"
+    t.bigint "computer_id", null: false
+    t.bigint "ram_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["computers_id"], name: "index_computer_rams_on_computers_id"
-    t.index ["rams_id"], name: "index_computer_rams_on_rams_id"
+    t.index ["computer_id"], name: "index_computer_rams_on_computer_id"
+    t.index ["ram_id"], name: "index_computer_rams_on_ram_id"
   end
 
   create_table "computers", force: :cascade do |t|
-    t.bigint "cpus_id", null: false
-    t.bigint "motherboards_id", null: false
-    t.bigint "gpus_id", null: false
+    t.bigint "cpu_id", null: false
+    t.bigint "motherboard_id", null: false
+    t.bigint "gpu_id", null: false
+    t.bigint "client_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["cpus_id"], name: "index_computers_on_cpus_id"
-    t.index ["gpus_id"], name: "index_computers_on_gpus_id"
-    t.index ["motherboards_id"], name: "index_computers_on_motherboards_id"
+    t.index ["client_id"], name: "index_computers_on_client_id"
+    t.index ["cpu_id"], name: "index_computers_on_cpu_id"
+    t.index ["gpu_id"], name: "index_computers_on_gpu_id"
+    t.index ["motherboard_id"], name: "index_computers_on_motherboard_id"
   end
 
   create_table "cpus", force: :cascade do |t|
@@ -84,11 +83,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_31_051155) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "clients", "computers", column: "computers_id"
-  add_foreign_key "computer_rams", "computers", column: "computers_id"
-  add_foreign_key "computer_rams", "rams", column: "rams_id"
-  add_foreign_key "computers", "cpus", column: "cpus_id"
-  add_foreign_key "computers", "gpus", column: "gpus_id"
-  add_foreign_key "computers", "motherboards", column: "motherboards_id"
+  add_foreign_key "computer_rams", "computers"
+  add_foreign_key "computer_rams", "rams"
+  add_foreign_key "computers", "clients"
+  add_foreign_key "computers", "cpus"
+  add_foreign_key "computers", "gpus"
+  add_foreign_key "computers", "motherboards"
   add_foreign_key "cpus", "brands"
 end
